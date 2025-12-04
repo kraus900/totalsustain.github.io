@@ -73,13 +73,6 @@
       border-top: 1px solid var(--border);
     }
 
-    /* Contact section custom spacing + centering */
-    #contact.section {
-      padding-top: 20px;
-      padding-bottom: 12px;
-      text-align: center;
-    }
-
     .section-label {
       font-size: 0.78rem;
       letter-spacing: 0.16em;
@@ -93,7 +86,13 @@
       line-height: 1.7;
       color: var(--muted);
       max-width: 540px;
-      margin: 0 auto;
+      margin: 0 auto; /* center column, left text */
+    }
+
+    /* Contact section: vertically centered padding */
+    #contact.section {
+      padding-top: 30px;
+      padding-bottom: 30px;
     }
 
     /* Plugin list */
@@ -163,11 +162,11 @@
       width: 100%;
     }
 
-    /* Footer with extra bottom padding */
+    /* Footer with medium extra bottom padding */
     footer {
       margin-top: 40px;
       padding-top: 26px;
-      padding-bottom: 40px; /* extra breathing room */
+      padding-bottom: 32px; /* split the difference */
       border-top: 1px solid var(--border);
       font-size: 0.8rem;
       color: var(--muted);
@@ -226,8 +225,8 @@
             </li>
 
             <li class="audio-item">
-              <div class="audio-label">Guitar – large bloom</div>
-              <div class="audio-caption">Room Size 20.0 · Liveness 8 · Mix ≈ 75%</div>
+              <div class="audio-label">DI Guitar (Total Early Reflections)</div>
+              <div class="audio-caption">Room Size 20 · Liveness 9 · Mix 100%</div>
               <audio controls>
                 <source src="audio/gtr_huge_bloom.mp3" type="audio/mpeg" />
               </audio>
