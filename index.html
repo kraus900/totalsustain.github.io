@@ -86,16 +86,16 @@
       line-height: 1.7;
       color: var(--muted);
       max-width: 540px;
-      margin: 0 auto; /* centered column, left text */
+      margin: 0; /* left aligned, no centering */
     }
 
-    /* Make contact vertically centered in its band */
-    #contact.section {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 30px 0;
-    }
+    /* Contact: vertically centered but left aligned */
+#contact.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 35px 0 0px 0;
+}
 
     /* Plugin list */
     .plugin-list {
@@ -168,7 +168,7 @@
     footer {
       margin-top: 40px;
       padding-top: 26px;
-      padding-bottom: 32px; /* moderate extra padding */
+      padding-bottom: 10px;
       border-top: 1px solid var(--border);
       font-size: 0.8rem;
       color: var(--muted);
