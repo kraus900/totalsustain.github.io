@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SPX90 Reverse ER2 – Reverse Early Reflections Plugin</title>
+  <title>Total Sustain – SPX90 Reverse ER2 Plugin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="SPX90 Reverse ER2 is a JUCE-based reverb plugin that recreates the Yamaha SPX90 Reverse Early Reflections 2 algorithm with real hardware impulse responses."
+    content="Total Sustain – SPX90 Reverse ER2, a JUCE-based reverb plugin that recreates the Yamaha SPX90 Reverse Early Reflections 2 algorithm using hardware impulse responses."
   />
 
-  <!-- Optional Google Font -->
+  <!-- Typeface -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -19,20 +19,12 @@
 
   <style>
     :root {
-      --bg: #05060a;
-      --bg-alt: #0b0d14;
-      --accent: #8f7aff;
-      --accent-soft: rgba(143, 122, 255, 0.3);
-      --accent-strong: #c3b2ff;
-      --text-main: #f7f7ff;
-      --text-muted: #a3a7c2;
-      --border-subtle: #202334;
-      --card-bg: #0d101a;
-      --radius-lg: 24px;
-      --radius-sm: 999px;
-      --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.55);
-      --shadow-chip: 0 10px 30px rgba(0, 0, 0, 0.7);
-      --max-width: 1080px;
+      --bg: #fafafa;
+      --text: #111111;
+      --text-muted: #666666;
+      --accent: #111111;
+      --border: #e1e1e1;
+      --max-width: 960px;
     }
 
     * {
@@ -41,150 +33,125 @@
       padding: 0;
     }
 
+    html, body {
+      height: 100%;
+    }
+
     body {
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
         "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #15192b 0, #05060a 60%);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      padding: 32px 16px 40px;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
 
     .page {
-      width: 100%;
       max-width: var(--max-width);
-      margin: 0 auto;
+      margin: 40px auto 80px;
+      padding: 0 20px;
     }
 
-    header {
+    /* Top bar */
+
+    .top {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 24px;
-      margin-bottom: 40px;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 60px;
     }
 
-    .logo-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 6px 14px;
-      border-radius: var(--radius-sm);
-      background: rgba(6, 8, 16, 0.8);
-      border: 1px solid rgba(143, 122, 255, 0.35);
-      box-shadow: var(--shadow-chip);
-      backdrop-filter: blur(14px);
-    }
-
-    .logo-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #ffffff, #8f7aff);
-    }
-
-    .logo-text {
-      font-size: 13px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent-strong);
+    .wordmark {
+      font-size: 0.95rem;
       font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
+
+    .top-nav {
+      display: flex;
+      gap: 18px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .top-nav a {
+      text-decoration: none;
+    }
+
+    .top-nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Hero */
 
     .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 3fr);
-      gap: 28px;
-    }
-
-    @media (min-width: 840px) {
-      .hero {
-        grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
-      }
+      margin-bottom: 72px;
     }
 
     .hero-title {
-      font-size: clamp(2.2rem, 4vw, 3rem);
-      font-weight: 700;
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-      margin-bottom: 10px;
+      font-size: clamp(2.7rem, 6vw, 3.7rem);
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      line-height: 1.02;
+      margin-bottom: 22px;
     }
 
-    .hero-subtitle {
-      font-size: 0.98rem;
+    .hero-sub {
+      max-width: 520px;
+      font-size: 1rem;
+      line-height: 1.6;
       color: var(--text-muted);
-      max-width: 460px;
-      line-height: 1.5;
-      margin-bottom: 20px;
+      margin-bottom: 32px;
     }
 
-    .hero-highlights {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 24px;
-    }
-
-    .hero-chip {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      padding: 6px 12px;
-      border-radius: var(--radius-sm);
-      border: 1px solid rgba(143, 122, 255, 0.6);
-      background: rgba(8, 11, 22, 0.9);
-      color: var(--accent-strong);
+    .hero-sub strong {
+      color: var(--text);
+      font-weight: 500;
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-      margin-bottom: 18px;
+      gap: 14px;
+      margin-bottom: 10px;
     }
 
-    .btn {
+    .button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      padding: 10px 18px;
-      border-radius: var(--radius-sm);
+      border-radius: 999px;
+      padding: 9px 18px;
       font-size: 0.9rem;
-      font-weight: 500;
-      border: 1px solid transparent;
-      text-decoration: none;
+      border: 1px solid var(--text);
+      background: transparent;
       cursor: pointer;
-      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out,
-        background 0.12s ease-out, border-color 0.12s ease-out;
+      text-decoration: none;
       white-space: nowrap;
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, #8f7aff, #c3b2ff);
-      color: #050509;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+    .button-primary {
+      background: var(--text);
+      color: #ffffff;
     }
 
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.7);
+    .button-primary:hover {
+      background: #000000;
+      border-color: #000000;
     }
 
-    .btn-ghost {
-      border-color: rgba(99, 105, 158, 0.7);
-      background: rgba(8, 11, 22, 0.9);
-      color: var(--text-main);
-    }
-
-    .btn-ghost:hover {
-      border-color: rgba(143, 122, 255, 0.9);
-      background: rgba(13, 17, 32, 0.98);
-      transform: translateY(-1px);
+    .button-ghost:hover {
+      background: #f0f0f0;
     }
 
     .hero-note {
@@ -192,460 +159,284 @@
       color: var(--text-muted);
     }
 
-    .hero-note strong {
-      color: var(--accent-strong);
-      font-weight: 500;
+    /* Two-column sections */
+
+    .section {
+      padding: 36px 0;
+      border-top: 1px solid var(--border);
     }
 
-    .hero-card {
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(45, 49, 78, 0.9);
-      background: radial-gradient(circle at top left, #191b2a 0, #05060a 60%);
-      box-shadow: var(--shadow-soft);
-      padding: 20px 20px 18px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-card-tag {
-      font-size: 0.76rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-
-    .hero-card-title {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 14px;
-    }
-
-    .hero-card-grid {
+    .section-inner {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px 12px;
-      margin-bottom: 16px;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 2fr);
+      gap: 40px;
     }
 
-    .metric {
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(38, 43, 74, 0.9);
-      background: rgba(9, 12, 24, 0.9);
-    }
-
-    .metric-label {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-
-    .metric-value {
-      font-size: 0.95rem;
-      font-weight: 500;
-    }
-
-    .metric-sub {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    .hero-card-footnote {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      border-top: 1px dashed rgba(45, 49, 78, 0.8);
-      padding-top: 10px;
-      margin-top: 6px;
-    }
-
-    /* Sections */
-
-    main {
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-      margin-top: 28px;
-    }
-
-    section {
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-subtle);
-      background: linear-gradient(
-        135deg,
-        rgba(9, 10, 18, 0.96),
-        rgba(7, 9, 16, 0.98)
-      );
-      padding: 22px 20px;
-      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.5);
-    }
-
-    @media (min-width: 840px) {
-      section {
-        padding: 24px 26px;
+    @media (max-width: 720px) {
+      .section-inner {
+        grid-template-columns: 1fr;
+        gap: 24px;
       }
     }
 
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 16px;
-      margin-bottom: 16px;
+    .section-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
     }
 
     .section-title {
       font-size: 1.1rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
+      font-weight: 500;
     }
 
-    .section-subtitle {
-      font-size: 0.82rem;
+    .section-body {
+      font-size: 0.94rem;
+      line-height: 1.7;
       color: var(--text-muted);
     }
 
-    .features-grid {
-      display: grid;
-      gap: 14px;
+    .section-body p + p {
+      margin-top: 0.7em;
     }
 
-    @media (min-width: 720px) {
-      .features-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
+    .mono-code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      font-size: 0.83rem;
+      background: #f0f0f0;
+      padding: 2px 6px;
+      border-radius: 4px;
     }
 
-    .feature {
-      padding: 12px 12px 11px;
-      border-radius: 16px;
-      border: 1px solid rgba(31, 35, 62, 0.9);
-      background: radial-gradient(
-        circle at top left,
-        rgba(143, 122, 255, 0.14),
-        transparent 60%
-      );
+    .list {
+      list-style: none;
+      margin-top: 0.7em;
     }
 
-    .feature-title {
+    .list li {
+      margin-bottom: 0.2em;
+    }
+
+    /* Audio list */
+
+    .audio-list {
+      list-style: none;
+    }
+
+    .audio-item + .audio-item {
+      margin-top: 18px;
+    }
+
+    .audio-label {
       font-size: 0.9rem;
-      font-weight: 500;
-      margin-bottom: 4px;
-    }
-
-    .feature-body {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .feature-tag {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 3px 8px;
-      border-radius: var(--radius-sm);
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      border: 1px solid rgba(143, 122, 255, 0.6);
-      color: var(--accent-strong);
-      margin-bottom: 5px;
-    }
-
-    .audio-grid {
-      display: grid;
-      gap: 14px;
-    }
-
-    @media (min-width: 720px) {
-      .audio-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    .audio-card {
-      padding: 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(31, 35, 62, 0.9);
-      background: rgba(8, 10, 18, 0.96);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .audio-title {
-      font-size: 0.86rem;
-      font-weight: 500;
+      margin-bottom: 2px;
     }
 
     .audio-caption {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
+      margin-bottom: 4px;
     }
 
     audio {
       width: 100%;
-      margin-top: 4px;
     }
 
-    .system-list {
-      list-style: none;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      display: grid;
-      gap: 4px;
-    }
-
-    .system-list strong {
-      color: var(--text-main);
-      font-weight: 500;
-    }
+    /* Footer */
 
     footer {
-      margin-top: 26px;
-      font-size: 0.78rem;
+      padding-top: 36px;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
       color: var(--text-muted);
       display: flex;
       justify-content: space-between;
-      flex-wrap: wrap;
       gap: 10px;
-      border-top: 1px solid rgba(31, 35, 62, 0.9);
-      padding-top: 14px;
-    }
-
-    footer a {
-      color: var(--accent-strong);
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
+      flex-wrap: wrap;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
   <div class="page">
-    <header>
-      <div class="logo-row">
-        <div class="logo-dot"></div>
-        <span class="logo-text">SPX90 Reverse ER2</span>
-      </div>
-
-      <div class="hero">
-        <div>
-          <h1 class="hero-title">Reverse early reflections, frozen in hardware.</h1>
-          <p class="hero-subtitle">
-            A JUCE-based reverb plugin that recreates the Yamaha SPX90
-            <strong>Reverse Early Reflections 2</strong> algorithm using
-            451 real hardware impulse responses — tuned for washed-out,
-            MBV-style reverse space.
-          </p>
-
-          <div class="hero-highlights">
-            <span class="hero-chip">44.1 kHz impulse library</span>
-            <span class="hero-chip">Room size &amp; liveness mapped 1:1</span>
-            <span class="hero-chip">Custom mix curve for shoegaze</span>
-          </div>
-
-          <div class="hero-actions">
-            <!-- TODO: Replace # with actual download links -->
-            <a href="#" class="btn btn-primary">
-              Download for macOS
-              <span style="font-size: 0.8em; opacity: 0.9">(.AU / .VST3)</span>
-            </a>
-            <a href="#" class="btn btn-ghost">
-              View documentation
-            </a>
-          </div>
-
-          <p class="hero-note">
-            <strong>Note:</strong> Currently built with JUCE 8 for macOS.
-            Windows VST3 build is planned.
-          </p>
-        </div>
-
-        <aside class="hero-card" aria-label="Plugin quick specs">
-          <div class="hero-card-tag">Snapshot</div>
-          <div class="hero-card-title">SPX90 Reverse ER2 at a glance</div>
-
-          <div class="hero-card-grid">
-            <div class="metric">
-              <div class="metric-label">Impulse responses</div>
-              <div class="metric-value">451 IRs</div>
-              <div class="metric-sub">
-                Room Size 0.1–20.0, Liveness 0–10
-              </div>
-            </div>
-
-            <div class="metric">
-              <div class="metric-label">DSP chain</div>
-              <div class="metric-value">Input → IR → EQ → Mix</div>
-              <div class="metric-sub">
-                +1.5 dB shelf @ 8 kHz on wet
-              </div>
-            </div>
-
-            <div class="metric">
-              <div class="metric-label">Mix behavior</div>
-              <div class="metric-value">Dry first, then wash</div>
-              <div class="metric-sub">Aggressive curve past 25%</div>
-            </div>
-
-            <div class="metric">
-              <div class="metric-label">Formats</div>
-              <div class="metric-value">AU / VST3</div>
-              <div class="metric-sub">macOS 10.13+ (Intel &amp; Apple)</div>
-            </div>
-          </div>
-
-          <div class="hero-card-footnote">
-            Captured from real SPX90 hardware, matched to 8 kHz top-end tilt,
-            and gain-compensated for the reverse ER2 preset family.
-          </div>
-        </aside>
-      </div>
+    <!-- Top bar -->
+    <header class="top">
+      <div class="wordmark">Total Sustain</div>
+      <nav class="top-nav">
+        <a href="#plugin">Plugin</a>
+        <a href="#audio">Audio</a>
+        <a href="#info">Info</a>
+      </nav>
     </header>
 
+    <!-- Hero -->
     <main>
-      <!-- Features -->
-      <section id="features">
-        <div class="section-header">
-          <div>
-            <h2 class="section-title">Built from the real box, not guesses.</h2>
-            <p class="section-subtitle">
-              Every setting of Reverse ER2 was sampled and mapped into the plugin.
-            </p>
-          </div>
+      <section class="hero">
+        <h1 class="hero-title">
+          SPX90 reverse early reflections<br />for the way people actually use it.
+        </h1>
+        <p class="hero-sub">
+          <strong>SPX90 Reverse ER2</strong> is a JUCE-based reverb plugin that
+          recreates the Yamaha SPX90 <em>Reverse Early Reflections 2</em>
+          algorithm using <strong>451 hardware impulse responses</strong>,
+          tuned for washed-out, guitar-forward mixes.
+        </p>
+
+        <div class="hero-actions">
+          <!-- TODO: replace # with your actual download link -->
+          <a href="#" class="button button-primary">
+            Download macOS AU / VST3
+          </a>
+          <!-- TODO: replace # with docs or GitHub link if you want -->
+          <a href="#info" class="button button-ghost">
+            Read more
+          </a>
         </div>
 
-        <div class="features-grid">
-          <div class="feature">
-            <div class="feature-tag">Impulse library</div>
-            <h3 class="feature-title">451 hardware captures</h3>
-            <p class="feature-body">
-              Each combination of <strong>Room Size</strong> (0.1–20.0) and
-              <strong>Liveness</strong> (0–10) is represented as a
-              44.1 kHz stereo IR, using filenames like
-              <code>SPX90_ER2_REV_RS01_LV8_44p1k.wav</code>.
-            </p>
-          </div>
+        <p class="hero-note">
+          Currently macOS only. Windows VST3 build is planned.
+        </p>
+      </section>
 
-          <div class="feature">
-            <div class="feature-tag">DSP</div>
-            <h3 class="feature-title">Reverse space, tuned for guitars</h3>
-            <p class="feature-body">
-              Mono &rarr; stereo, wet-only pre-delay, convolution, then a gentle
-              +1.5 dB high-shelf at 8 kHz to match the SPX90’s top-end. Custom
-              dry/wet behavior keeps your direct signal intact before blooming
-              into full reverse haze.
-            </p>
+      <!-- Plugin section -->
+      <section class="section" id="plugin">
+        <div class="section-inner">
+          <div>
+            <div class="section-label">Plugin</div>
+            <h2 class="section-title">Reverse ER2, captured setting by setting.</h2>
           </div>
-
-          <div class="feature">
-            <div class="feature-tag">Controls</div>
-            <h3 class="feature-title">Simple layout, sweet spots baked in</h3>
-            <p class="feature-body">
-              Six knobs: <em>Input Gain, Room Size, Liveness, Pre-delay, Mix,
-              Output Gain</em>. The mix curve is designed so that 0–25% is
-              mostly dry, then ramps quickly into the “MBV wall of reverse”
-              zone from 30–100%.
+          <div class="section-body">
+            <p>
+              Every combination of <strong>Room Size</strong> (0.1–20.0) and
+              <strong>Liveness</strong> (0–10) from the SPX90 Reverse Early
+              Reflections 2 program is sampled as a 44.1 kHz stereo impulse
+              response, using filenames like
+              <span class="mono-code">SPX90_ER2_REV_RS01_LV8_44p1k.wav</span>.
+            </p>
+            <p>
+              The plugin uses a simple chain:
+            </p>
+            <ul class="list">
+              <li>Input gain</li>
+              <li>Mono → stereo (if needed)</li>
+              <li>Wet-only pre-delay</li>
+              <li>Convolution with the selected IR</li>
+              <li>+1.5 dB high-shelf at 8 kHz (wet only)</li>
+              <li>Custom dry / wet mix curve</li>
+              <li>Output gain</li>
+            </ul>
+            <p>
+              Controls are kept to six knobs:
+              <em>Input Gain, Room Size, Liveness, Pre-delay, Mix, Output Gain</em>.
+              The mix curve keeps the first 0–25% mostly dry, then blooms quickly
+              into the “wall of reverse” zone from 30–100%.
             </p>
           </div>
         </div>
       </section>
 
-      <!-- Audio demos -->
-      <section id="audio">
-        <div class="section-header">
+      <!-- Audio section -->
+      <section class="section" id="audio">
+        <div class="section-inner">
           <div>
-            <h2 class="section-title">Hear it in context.</h2>
-            <p class="section-subtitle">
-              A few quick comparisons of dry vs. SPX90 Reverse ER2 plugin.
-            </p>
+            <div class="section-label">Audio</div>
+            <h2 class="section-title">Listen.</h2>
           </div>
-        </div>
+          <div class="section-body">
+            <ul class="audio-list">
+              <li class="audio-item">
+                <div class="audio-label">Guitar – Short reverse wash</div>
+                <div class="audio-caption">
+                  Room Size 2.0 · Liveness 5 · Mix ≈ 40%
+                </div>
+                <audio controls>
+                  <source src="audio/gtr_short_reverse.mp3" type="audio/mpeg" />
+                  Your browser does not support the audio element.
+                </audio>
+              </li>
 
-        <div class="audio-grid">
-          <div class="audio-card">
-            <div class="audio-title">Guitar – short reverse wash</div>
-            <div class="audio-caption">Room Size 2.0, Liveness 5, Mix ~40%</div>
-            <!-- TODO: replace src with your demo file -->
-            <audio controls>
-              <source src="audio/gtr_short_reverse.mp3" type="audio/mpeg" />
-              Your browser does not support the audio element.
-            </audio>
-          </div>
+              <li class="audio-item">
+                <div class="audio-label">Guitar – Large bloom</div>
+                <div class="audio-caption">
+                  Room Size 20.0 · Liveness 8 · Mix ≈ 75%
+                </div>
+                <audio controls>
+                  <source src="audio/gtr_huge_bloom.mp3" type="audio/mpeg" />
+                  Your browser does not support the audio element.
+                </audio>
+              </li>
 
-          <div class="audio-card">
-            <div class="audio-title">Guitar – huge bloom</div>
-            <div class="audio-caption">
-              Room Size 20.0, Liveness 8, Mix ~75%
-            </div>
-            <audio controls>
-              <source src="audio/gtr_huge_bloom.mp3" type="audio/mpeg" />
-              Your browser does not support the audio element.
-            </audio>
-          </div>
+              <li class="audio-item">
+                <div class="audio-label">Vocal – Ghosted tails</div>
+                <div class="audio-caption">
+                  Room Size 10.0 · Liveness 6 · Pre-delay ≈ 50 ms
+                </div>
+                <audio controls>
+                  <source src="audio/vocal_ghosted.mp3" type="audio/mpeg" />
+                  Your browser does not support the audio element.
+                </audio>
+              </li>
 
-          <div class="audio-card">
-            <div class="audio-title">Vocal – ghosted tails</div>
-            <div class="audio-caption">
-              Room Size 10.0, Liveness 6, Pre-delay ~50 ms
-            </div>
-            <audio controls>
-              <source src="audio/vocal_ghosted.mp3" type="audio/mpeg" />
-              Your browser does not support the audio element.
-            </audio>
-          </div>
-
-          <div class="audio-card">
-            <div class="audio-title">Drum loop – reverse ambience</div>
-            <div class="audio-caption">
-              Room Size 5.0, Liveness 4, Mix ~30%
-            </div>
-            <audio controls>
-              <source src="audio/drums_reverse_room.mp3" type="audio/mpeg" />
-              Your browser does not support the audio element.
-            </audio>
+              <li class="audio-item">
+                <div class="audio-label">Drum loop – Reverse ambience</div>
+                <div class="audio-caption">
+                  Room Size 5.0 · Liveness 4 · Mix ≈ 30%
+                </div>
+                <audio controls>
+                  <source src="audio/drums_reverse_room.mp3" type="audio/mpeg" />
+                  Your browser does not support the audio element.
+                </audio>
+              </li>
+            </ul>
           </div>
         </div>
       </section>
 
-      <!-- System requirements / info -->
-      <section id="requirements">
-        <div class="section-header">
+      <!-- Info / requirements -->
+      <section class="section" id="info">
+        <div class="section-inner">
           <div>
-            <h2 class="section-title">Requirements & formats.</h2>
-            <p class="section-subtitle">
-              Lightweight plugin with external IRs tucked inside the bundle.
+            <div class="section-label">Info</div>
+            <h2 class="section-title">Requirements & format.</h2>
+          </div>
+          <div class="section-body">
+            <p>
+              <strong>Host</strong> · Any DAW that supports Audio Units (AU) or VST3.
+            </p>
+            <p>
+              <strong>macOS</strong> · 10.13 High Sierra or later, Intel or Apple Silicon.
+            </p>
+            <p>
+              <strong>Sample rate</strong> · Impulses captured at 44.1 kHz; the host
+              handles resampling.
+            </p>
+            <p>
+              <strong>Installation</strong> ·
+              AU to <span class="mono-code">/Library/Audio/Plug-Ins/Components</span>,
+              VST3 to <span class="mono-code">/Library/Audio/Plug-Ins/VST3</span>.
+              IRs are bundled inside each plugin at
+              <span class="mono-code">Contents/Resources/IRs/</span>.
+            </p>
+            <p>
+              For questions or bug reports:
+              <a href="mailto:contact@example.com">contact@example.com</a>
+              <!-- replace with your real email -->
             </p>
           </div>
         </div>
-
-        <ul class="system-list">
-          <li><strong>Host</strong> – Any DAW that supports AU or VST3.</li>
-          <li><strong>macOS</strong> – 10.13 High Sierra or later (Intel &amp; Apple Silicon).</li>
-          <li><strong>Sample rate</strong> – IRs captured at 44.1 kHz (host will resample as needed).</li>
-          <li><strong>Installation</strong> – AU &rarr; <code>/Library/Audio/Plug-Ins/Components</code>, VST3 &rarr; <code>/Library/Audio/Plug-Ins/VST3</code>.</li>
-          <li><strong>IRs</strong> – Bundled in <code>Contents/Resources/IRs/</code> inside each plugin.</li>
-        </ul>
       </section>
     </main>
 
     <footer>
-      <span>© <span id="year"></span> SPX90 Reverse ER2 – Reverse Early Reflections Plugin.</span>
-      <span>
-        Questions? <a href="mailto:contact@example.com">Email the developer</a>
-      </span>
+      <span>© <span id="year"></span> Total Sustain.</span>
+      <span>SPX90 Reverse ER2 – reverse early reflections plugin.</span>
     </footer>
   </div>
 
   <script>
-    // Simple year auto-update
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
