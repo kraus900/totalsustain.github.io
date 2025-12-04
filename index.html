@@ -86,13 +86,15 @@
       line-height: 1.7;
       color: var(--muted);
       max-width: 540px;
-      margin: 0 auto; /* center column, left text */
+      margin: 0 auto; /* centered column, left text */
     }
 
-    /* Contact section: vertically centered padding */
+    /* Make contact vertically centered in its band */
     #contact.section {
-      padding-top: 30px;
-      padding-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 30px 0;
     }
 
     /* Plugin list */
@@ -162,11 +164,11 @@
       width: 100%;
     }
 
-    /* Footer with medium extra bottom padding */
+    /* Footer */
     footer {
       margin-top: 40px;
       padding-top: 26px;
-      padding-bottom: 32px; /* split the difference */
+      padding-bottom: 32px; /* moderate extra padding */
       border-top: 1px solid var(--border);
       font-size: 0.8rem;
       color: var(--muted);
@@ -215,7 +217,6 @@
 
         <div class="section-body">
           <ul class="audio-list">
-
             <li class="audio-item">
               <div class="audio-label">DI Guitar (Hardware SPX90)</div>
               <div class="audio-caption">Room Size 20 · Liveness 9 · Mix 100%</div>
@@ -231,7 +232,6 @@
                 <source src="audio/gtr_huge_bloom.mp3" type="audio/mpeg" />
               </audio>
             </li>
-
           </ul>
         </div>
       </section>
