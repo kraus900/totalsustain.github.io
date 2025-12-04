@@ -73,10 +73,11 @@
       border-top: 1px solid var(--border);
     }
 
-    /* Contact section custom spacing */
+    /* Contact section custom spacing + centering */
     #contact.section {
       padding-top: 20px;
       padding-bottom: 12px;
+      text-align: center;
     }
 
     .section-label {
@@ -92,9 +93,10 @@
       line-height: 1.7;
       color: var(--muted);
       max-width: 540px;
+      margin: 0 auto;
     }
 
-    /* Plugin / releases list */
+    /* Plugin list */
     .plugin-list {
       list-style: none;
       margin-top: 18px;
@@ -134,14 +136,14 @@
       margin-left: 6px;
     }
 
-    /* Audio demos */
+    /* Examples */
     .audio-list {
       list-style: none;
       margin-top: 14px;
     }
 
     .audio-item + .audio-item {
-      margin-top: 16px;
+      margin-top: 24px;
     }
 
     .audio-label {
@@ -161,10 +163,11 @@
       width: 100%;
     }
 
-    /* Footer */
+    /* Footer with extra bottom padding */
     footer {
       margin-top: 40px;
       padding-top: 26px;
+      padding-bottom: 40px; /* extra breathing room */
       border-top: 1px solid var(--border);
       font-size: 0.8rem;
       color: var(--muted);
@@ -177,7 +180,6 @@
 </head>
 <body>
   <div class="page">
-    <!-- Header image -->
     <img src="img/header.jpg" alt="" class="header-image" />
 
     <main>
@@ -187,9 +189,7 @@
 
         <ul class="plugin-list">
           <li class="plugin-item">
-            <div class="plugin-name">
-              SPX90 Reverse ER2
-            </div>
+            <div class="plugin-name">SPX90 Reverse ER2</div>
             <div class="plugin-tagline">
               Reverse early reflections from a Yamaha SPX90, sampled across the whole program.
             </div>
@@ -201,8 +201,7 @@
 
           <li class="plugin-item">
             <div class="plugin-name">
-              Midiverb II (reverse / rooms)
-              <span class="chip">in progress</span>
+              Midiverb II (reverse / rooms) <span class="chip">in progress</span>
             </div>
             <div class="plugin-tagline">
               Planned capture of a Midiverb II for a small set of presets.
@@ -217,6 +216,7 @@
 
         <div class="section-body">
           <ul class="audio-list">
+
             <li class="audio-item">
               <div class="audio-label">DI Guitar (Hardware SPX90)</div>
               <div class="audio-caption">Room Size 20 · Liveness 9 · Mix 100%</div>
@@ -233,21 +233,6 @@
               </audio>
             </li>
 
-            <li class="audio-item">
-              <div class="audio-label">Vocal – ghosted tails</div>
-              <div class="audio-caption">Room Size 10.0 · Liveness 6 · Pre-delay ≈ 50 ms</div>
-              <audio controls>
-                <source src="audio/vocal_ghosted.mp3" type="audio/mpeg" />
-              </audio>
-            </li>
-
-            <li class="audio-item">
-              <div class="audio-label">Drum loop – reverse ambience</div>
-              <div class="audio-caption">Room Size 5.0 · Liveness 4 · Mix ≈ 30%</div>
-              <audio controls>
-                <source src="audio/drums_reverse_room.mp3" type="audio/mpeg" />
-              </audio>
-            </li>
           </ul>
         </div>
       </section>
@@ -256,8 +241,7 @@
       <section class="section" id="contact">
         <div class="section-label">Contact</div>
         <div class="section-body">
-          Inquiries:
-          <a href="mailto:totalsustain@gmail.com">totalsustain@gmail.com</a>
+          Inquiries: <a href="mailto:totalsustain@gmail.com">totalsustain@gmail.com</a>
         </div>
       </section>
     </main>
