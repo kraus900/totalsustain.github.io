@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="Total Sustain – small audio tools, including an SPX90 Reverse ER2 plugin."
+    content="Total Sustain – small audio tools, including SPX90 and Midiverb II recreations."
   />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -64,7 +64,14 @@
       width: 60%;
       height: auto;
       object-fit: cover;
-      margin-bottom: 34px; /* matches section top padding */
+      margin-bottom: 34px;
+    }
+
+    /* MOBILE OVERRIDE: full width image */
+    @media (max-width: 700px) {
+      .header-image {
+        width: 100%;
+      }
     }
 
     /* Sections */
@@ -73,7 +80,7 @@
       border-top: 1px solid var(--border);
     }
 
-    /* Remove divider above the first section */
+    /* Remove border above first section */
     .section:first-of-type {
       border-top: none;
     }
@@ -94,12 +101,12 @@
       margin: 0;
     }
 
-    /* Contact: vertically centered but left aligned */
+    /* Contact section */
     #contact.section {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 35px 0 0px 0;
+      padding: 35px 0 0 0;
     }
 
     /* Plugin list */
@@ -165,7 +172,7 @@
       margin-bottom: 8px;
     }
 
-    /* Hide native audio controls for custom player */
+    /* hide default audio UI */
     audio {
       display: none;
     }
@@ -183,19 +190,10 @@
       user-select: none;
     }
 
-    .mini-player-icon {
-      font-size: 0.86rem;
-    }
-
-    .mini-player-label {
-      font-size: 0.86rem;
-    }
-
     .mini-player:hover {
       background: #f1f1f1;
     }
 
-    /* Footer */
     footer {
       margin-top: 30px;
       padding-top: 20px;
@@ -212,18 +210,22 @@
 </head>
 <body>
   <div class="page">
+
     <img src="img/header.jpg" alt="" class="header-image" />
 
     <main>
+
       <!-- Releases -->
       <section class="section" id="releases">
         <div class="section-label">Releases</div>
 
         <ul class="plugin-list">
+
           <li class="plugin-item">
-            <div class="plugin-name">Early Relflections</div>
+            <div class="plugin-name">Early Reflections</div>
             <div class="plugin-tagline">
-              Complete software recreation of the Yamaha SPX90 Early Reflections 2 patch used by My Bloody Valentine in "To Here Knows When", "Blown a Wish" & more.
+              Complete software recreation of the Yamaha SPX90 Early Reflections 2 patch used by My Bloody Valentine in 
+              "To Here Knows When", "Blown a Wish" & more.
             </div>
             <div class="plugin-links">
               <a href="#">Download (macOS AU / VST3)</a>
@@ -231,13 +233,13 @@
           </li>
 
           <li class="plugin-item">
-            <div class="plugin-name">
-              Bloom<span class="chip">in progress</span>
-            </div>
+            <div class="plugin-name">Bloom <span class="chip">in progress</span></div>
             <div class="plugin-tagline">
-              Complete software recreation of the Alesis Midiverb II "Bloom" patch, used by My Bloody Valentine on "All I Need", "Slow" and "Thorn".
+              Complete software recreation of the Alesis Midiverb II "Bloom" patch,
+              used by My Bloody Valentine on "All I Need", "Slow" and "Thorn".
             </div>
           </li>
+
         </ul>
       </section>
 
@@ -247,14 +249,14 @@
 
         <div class="section-body">
           <ul class="audio-list">
+
             <li class="audio-item">
               <div class="audio-label">DI Guitar (Hardware SPX90)</div>
               <div class="audio-caption">Room Size 20 · Liveness 9 · Mix 100%</div>
 
               <audio id="audio-hardware" src="audio/hardware_spx90.mp3"></audio>
               <button class="mini-player" data-audio-id="audio-hardware">
-                <span class="mini-player-icon">▶</span>
-                <span class="mini-player-label">Play</span>
+                <span class="mini-player-icon">▶</span> Play
               </button>
             </li>
 
@@ -264,10 +266,10 @@
 
               <audio id="audio-software" src="audio/software_spx90.mp3"></audio>
               <button class="mini-player" data-audio-id="audio-software">
-                <span class="mini-player-icon">▶</span>
-                <span class="mini-player-label">Play</span>
+                <span class="mini-player-icon">▶</span> Play
               </button>
             </li>
+
           </ul>
         </div>
       </section>
@@ -279,58 +281,59 @@
           <a href="mailto:totalsustain@gmail.com">totalsustain@gmail.com</a>
         </div>
       </section>
+
     </main>
 
     <footer>
       <span>© <span id="year"></span> Total Sustain.</span>
       <span>totalsustain.net</span>
     </footer>
+
   </div>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Minimal custom audio player logic
+    /* Custom audio player logic */
     const buttons = document.querySelectorAll(".mini-player");
     const audios = document.querySelectorAll("audio");
 
-    function pauseAllExcept(activeId) {
-      audios.forEach(a => {
-        if (a.id !== activeId) {
-          a.pause();
-          const btn = document.querySelector(`.mini-player[data-audio-id="${a.id}"]`);
+    function pauseAllExcept(id) {
+      audios.forEach(audio => {
+        if (audio.id !== id) {
+          audio.pause();
+          const btn = document.querySelector(`.mini-player[data-audio-id="${audio.id}"]`);
           if (btn) {
             btn.querySelector(".mini-player-icon").textContent = "▶";
-            btn.querySelector(".mini-player-label").textContent = "Play";
+            btn.lastChild.textContent = " Play";
           }
         }
       });
     }
 
-    buttons.forEach(button => {
-      const audioId = button.getAttribute("data-audio-id");
-      const audio = document.getElementById(audioId);
+    buttons.forEach(btn => {
+      const id = btn.getAttribute("data-audio-id");
+      const audio = document.getElementById(id);
 
-      if (!audio) return;
-
-      button.addEventListener("click", () => {
+      btn.addEventListener("click", () => {
         if (audio.paused) {
-          pauseAllExcept(audioId);
+          pauseAllExcept(id);
           audio.play();
-          button.querySelector(".mini-player-icon").textContent = "❚❚";
-          button.querySelector(".mini-player-label").textContent = "Pause";
+          btn.querySelector(".mini-player-icon").textContent = "❚❚";
+          btn.lastChild.textContent = " Pause";
         } else {
           audio.pause();
-          button.querySelector(".mini-player-icon").textContent = "▶";
-          button.querySelector(".mini-player-label").textContent = "Play";
+          btn.querySelector(".mini-player-icon").textContent = "▶";
+          btn.lastChild.textContent = " Play";
         }
       });
 
       audio.addEventListener("ended", () => {
-        button.querySelector(".mini-player-icon").textContent = "▶";
-        button.querySelector(".mini-player-label").textContent = "Play";
+        btn.querySelector(".mini-player-icon").textContent = "▶";
+        btn.lastChild.textContent = " Play";
       });
     });
   </script>
+
 </body>
 </html>
