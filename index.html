@@ -64,7 +64,7 @@
       width: 60%;
       height: auto;
       object-fit: cover;
-      margin-bottom: 34px; /* CHANGED from 15px to match section top padding */
+      margin-bottom: 34px; /* matches section top padding */
     }
 
     /* Sections */
@@ -162,11 +162,37 @@
     .audio-caption {
       font-size: 0.8rem;
       color: var(--muted);
-      margin-bottom: 4px;
+      margin-bottom: 8px;
     }
 
+    /* Hide native audio controls for custom player */
     audio {
-      width: 100%;
+      display: none;
+    }
+
+    .mini-player {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #f6f6f6;
+      font-size: 0.86rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .mini-player-icon {
+      font-size: 0.86rem;
+    }
+
+    .mini-player-label {
+      font-size: 0.86rem;
+    }
+
+    .mini-player:hover {
+      background: #f1f1f1;
     }
 
     /* Footer */
@@ -221,23 +247,27 @@
 
         <div class="section-body">
           <ul class="audio-list">
-
             <li class="audio-item">
               <div class="audio-label">DI Guitar (Hardware SPX90)</div>
               <div class="audio-caption">Room Size 20 · Liveness 9 · Mix 100%</div>
-              <audio controls>
-                <source src="audio/hardware_spx90.mp3" type="audio/mpeg" />
-              </audio>
+
+              <audio id="audio-hardware" src="audio/hardware_spx90.mp3"></audio>
+              <button class="mini-player" data-audio-id="audio-hardware">
+                <span class="mini-player-icon">▶</span>
+                <span class="mini-player-label">Play</span>
+              </button>
             </li>
 
             <li class="audio-item">
               <div class="audio-label">DI Guitar (Total Sustain Early Reflections)</div>
               <div class="audio-caption">Room Size 20 · Liveness 9 · Mix 100%</div>
-              <audio controls>
-                <source src="audio/software_spx90.mp3" type="audio/mpeg" />
-              </audio>
-            </li>
 
+              <audio id="audio-software" src="audio/software_spx90.mp3"></audio>
+              <button class="mini-player" data-audio-id="audio-software">
+                <span class="mini-player-icon">▶</span>
+                <span class="mini-player-label">Play</span>
+              </button>
+            </li>
           </ul>
         </div>
       </section>
@@ -259,6 +289,48 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Minimal custom audio player logic
+    const buttons = document.querySelectorAll(".mini-player");
+    const audios = document.querySelectorAll("audio");
+
+    function pauseAllExcept(activeId) {
+      audios.forEach(a => {
+        if (a.id !== activeId) {
+          a.pause();
+          const btn = document.querySelector(`.mini-player[data-audio-id="${a.id}"]`);
+          if (btn) {
+            btn.querySelector(".mini-player-icon").textContent = "▶";
+            btn.querySelector(".mini-player-label").textContent = "Play";
+          }
+        }
+      });
+    }
+
+    buttons.forEach(button => {
+      const audioId = button.getAttribute("data-audio-id");
+      const audio = document.getElementById(audioId);
+
+      if (!audio) return;
+
+      button.addEventListener("click", () => {
+        if (audio.paused) {
+          pauseAllExcept(audioId);
+          audio.play();
+          button.querySelector(".mini-player-icon").textContent = "❚❚";
+          button.querySelector(".mini-player-label").textContent = "Pause";
+        } else {
+          audio.pause();
+          button.querySelector(".mini-player-icon").textContent = "▶";
+          button.querySelector(".mini-player-label").textContent = "Play";
+        }
+      });
+
+      audio.addEventListener("ended", () => {
+        button.querySelector(".mini-player-icon").textContent = "▶";
+        button.querySelector(".mini-player-label").textContent = "Play";
+      });
+    });
   </script>
 </body>
 </html>
