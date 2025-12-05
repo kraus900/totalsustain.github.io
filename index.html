@@ -73,6 +73,11 @@
       border-top: 1px solid var(--border);
     }
 
+    /* Remove divider above the first section */
+    .section:first-of-type {
+      border-top: none;
+    }
+
     .section-label {
       font-size: 0.78rem;
       letter-spacing: 0.16em;
@@ -90,12 +95,12 @@
     }
 
     /* Contact: vertically centered but left aligned */
-#contact.section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 35px 0 0px 0;
-}
+    #contact.section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 35px 0 0px 0;
+    }
 
     /* Plugin list */
     .plugin-list {
