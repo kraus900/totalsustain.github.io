@@ -186,6 +186,13 @@
       background: #f1f1f1;
     }
 
+    .audio-button-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+
     footer {
       margin-top: 30px;
       padding-top: 20px;
@@ -216,12 +223,12 @@
           <li class="plugin-item">
             <div class="plugin-name">Early Reflections</div>
             <div class="plugin-tagline">
-              Software recreation of the Yamaha SPX90 Early Reflections 2 patch used by My Bloody Valentine in 
-              "To Here Knows When", "Blown a Wish" & more. Created with 450+ high quality impulse responses.
+              Complete software recreation of the Yamaha SPX90 Early Reflections 2 patch used by My Bloody Valentine in 
+              "To Here Knows When", "Blown a Wish" & more.
             </div>
             <div class="plugin-links">
               <a href="https://checkout.dodopayments.com/buy/pdt_2U2YR1NjUVA0c5wY8bFKM?quantity=1&redirect_url=https://www.totalsustain.net%2F">Purchase (macOS AU / VST3)</a>
-              <a href="https://checkout.dodopayments.com/buy/pdt_PB3AAEYIyHseZpRjDHPRn?quantity=1&redirect_url=https://www.totalsustain.net%2F">Purchase (Windows)</a>
+              <a href="https://checkout.dodopayments.com/buy/pdt_2U2YR1NjUVA0c5wY8bFKM?quantity=1&redirect_url=https://www.totalsustain.net%2F">Purchase (Windows)</a>
             </div>
           </li>
 
@@ -236,23 +243,22 @@
           <ul class="audio-list">
 
             <li class="audio-item">
-              <div class="audio-label">DI Guitar (Hardware SPX90)</div>
+              <div class="audio-label">Early Reflections Comparison</div>
               <div class="audio-caption">Room Size 20 · Liveness 9 · Mix 100%</div>
 
               <audio id="audio-hardware" src="audio/hardware_spx90.mp3"></audio>
-              <button class="mini-player" data-audio-id="audio-hardware">
-                <span class="mini-player-icon">▶</span> Play
-              </button>
-            </li>
+              <audio id="audio-plugin" src="audio/software_spx90.mp3"></audio>
 
-            <li class="audio-item">
-              <div class="audio-label">DI Guitar (Plugin Early Reflections)</div>
-              <div class="audio-caption">Room Size 20 · Liveness 9 · Mix 100%</div>
-
-              <audio id="audio-software" src="audio/software_spx90.mp3"></audio>
-              <button class="mini-player" data-audio-id="audio-software">
-                <span class="mini-player-icon">▶</span> Play
-              </button>
+              <div class="audio-button-row">
+                <button class="mini-player" data-audio-id="audio-hardware">
+                  <span class="mini-player-icon">▶</span>
+                  <span class="mini-player-label">Hardware</span>
+                </button>
+                <button class="mini-player" data-audio-id="audio-plugin">
+                  <span class="mini-player-icon">▶</span>
+                  <span class="mini-player-label">Plug-in</span>
+                </button>
+              </div>
             </li>
 
           </ul>
@@ -289,7 +295,6 @@
           const btn = document.querySelector(`.mini-player[data-audio-id="${audio.id}"]`);
           if (btn) {
             btn.querySelector(".mini-player-icon").textContent = "▶";
-            btn.lastChild.textContent = " Play";
           }
         }
       });
@@ -304,17 +309,14 @@
           pauseAllExcept(id);
           audio.play();
           btn.querySelector(".mini-player-icon").textContent = "❚❚";
-          btn.lastChild.textContent = " Pause";
         } else {
           audio.pause();
           btn.querySelector(".mini-player-icon").textContent = "▶";
-          btn.lastChild.textContent = " Play";
         }
       });
 
       audio.addEventListener("ended", () => {
         btn.querySelector(".mini-player-icon").textContent = "▶";
-        btn.lastChild.textContent = " Play";
       });
     });
   </script>
