@@ -58,7 +58,6 @@
       padding: 0 20px;
     }
 
-    /* Header image */
     .header-image {
       display: block;
       width: 60%;
@@ -67,20 +66,17 @@
       margin-bottom: 34px;
     }
 
-    /* MOBILE OVERRIDE: full width image */
     @media (max-width: 700px) {
       .header-image {
         width: 100%;
       }
     }
 
-    /* Sections */
     .section {
       padding: 34px 0;
       border-top: 1px solid var(--border);
     }
 
-    /* Remove border above first section */
     .section:first-of-type {
       border-top: none;
     }
@@ -101,7 +97,6 @@
       margin: 0;
     }
 
-    /* Contact section */
     #contact.section {
       display: flex;
       flex-direction: column;
@@ -109,7 +104,6 @@
       padding: 35px 0 0 0;
     }
 
-    /* Plugin list */
     .plugin-list {
       list-style: none;
       margin-top: 18px;
@@ -149,7 +143,6 @@
       margin-left: 6px;
     }
 
-    /* Examples */
     .audio-list {
       list-style: none;
       margin-top: 14px;
@@ -172,7 +165,6 @@
       margin-bottom: 8px;
     }
 
-    /* hide default audio UI */
     audio {
       display: none;
     }
@@ -229,14 +221,7 @@
             </div>
             <div class="plugin-links">
               <a href="https://checkout.dodopayments.com/buy/pdt_2U2YR1NjUVA0c5wY8bFKM?quantity=1&redirect_url=https://www.totalsustain.net%2F">Purchase (macOS AU / VST3)</a>
-            </div>
-          </li>
-
-          <li class="plugin-item">
-            <div class="plugin-name">Bloom <span class="chip">in progress</span></div>
-            <div class="plugin-tagline">
-              Complete software recreation of the Alesis Midiverb II "Bloom" patch,
-              used by My Bloody Valentine on "All I Need", "Slow" and "Thorn".
+              <a href="https://checkout.dodopayments.com/buy/pdt_2U2YR1NjUVA0c5wY8bFKM?quantity=1&redirect_url=https://www.totalsustain.net%2F">Purchase (Windows)</a>
             </div>
           </li>
 
@@ -261,7 +246,7 @@
             </li>
 
             <li class="audio-item">
-              <div class="audio-label">DI Guitar (Total Sustain Early Reflections)</div>
+              <div class="audio-label">DI Guitar (Plugin Early Reflections)</div>
               <div class="audio-caption">Room Size 20 · Liveness 9 · Mix 100%</div>
 
               <audio id="audio-software" src="audio/software_spx90.mp3"></audio>
@@ -294,7 +279,6 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    /* Custom audio player logic */
     const buttons = document.querySelectorAll(".mini-player");
     const audios = document.querySelectorAll("audio");
 
